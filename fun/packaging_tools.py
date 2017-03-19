@@ -104,12 +104,15 @@ class PackagingApk(object):
             self.listener.error("you must select apk!")
             return
 
-        if not self.output_path:
+        if "" == self.output_path:
             output = os.path.split(self.apk_path)
             apk_dir = os.path.join(output[0], "apk")
             if not os.path.exists(apk_dir):
                 os.makedirs(apk_dir)
             self.output_path = apk_dir
+        else:
+            if not os.path.exists(self.output_path):
+                os.makedirs(self.output_path)
 
         for channel in self.channel_list:
             output_apk = os.path.join(self.output_path,
@@ -142,5 +145,6 @@ class PackagingListener(object):
 if __name__ == "__main__":
     your_apk = r"D:\channel\app-debug.apk"
     channel_file = r"D:\channel"
+    output_file = r"D:\channel\apks"
 
-    PackagingApk.instance(your_apk).channels(channel_file).pack()
+    PackagingApk.instance(your_apk).channels(channel_file).dist(output_file).pack(prefix="a-", suffix="-b")
