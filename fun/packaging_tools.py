@@ -74,6 +74,7 @@ class PackagingApk(object):
         self.apk_path = apk_path
         self.channel_list = []
         self.output_path = ""
+        self.listener = PackagingListener()
 
     @staticmethod
     def instance(apk_path):
@@ -87,13 +88,22 @@ class PackagingApk(object):
         self.output_path = output_path
         return self
 
-    def pack(self, prefix="", suffix=""):
+    def pack(self, prefix="", suffix="", listener=None):
         """
         向apk中写入META-INF/channel_{channel}空文件，channel为ascii渠道名
         :param prefix:
         :param suffix:
+        :param listener:
         :return:
         """
+        if listener:
+            self.listener = listener
+
+        self.listener.on_start(len(self.channel_list))
+        if not (self.apk_path and os.path.exists(self.apk_path) and self.apk_path.endswith(".apk")):
+            self.listener.error("you must select apk!")
+            return
+
         if not self.output_path:
             output = os.path.split(self.apk_path)
             apk_dir = os.path.join(output[0], "apk")
@@ -109,6 +119,24 @@ class PackagingApk(object):
             with zipfile.ZipFile(output_apk, 'a', zipfile.ZIP_DEFLATED) as zipped:
                 empty_channel_file = "META-INF/channel_{channel}".format(channel=channel)
                 zipped.write(self.apk_path, empty_channel_file)
+
+            self.listener.on_pack(output_apk)
+
+        self.listener.on_finish()
+
+
+class PackagingListener(object):
+    def on_start(self, channel_count):
+        pass
+
+    def on_pack(self, message):
+        pass
+
+    def on_error(self, message):
+        pass
+
+    def on_finish(self):
+        pass
 
 
 if __name__ == "__main__":
