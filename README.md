@@ -1,0 +1,2 @@
+# MultiChannelApk
+用于多渠道android安装包apk生成
