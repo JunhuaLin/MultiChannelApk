@@ -67,7 +67,7 @@ class ChannelParser(object):
 
     def _parse_file(self, path):
         """
-        读取.txt文件的渠道信息
+        读取.channel文件的渠道信息
         :param path: 文件路径
         """
         if not (path and os.path.exists(path) and os.path.isfile(path) and path.endswith(".channel")):
@@ -164,7 +164,7 @@ class ApkPackager(object):
 
     def pack(self, listener=None):
         """
-        向apk中写入META-INF/channel_{channel}空文件，channel为ascii渠道名
+        向apk中写入META-INF/channel_{channel}空文件，channel为[\w+]的渠道名
         :param listener:
         :return:
         """
