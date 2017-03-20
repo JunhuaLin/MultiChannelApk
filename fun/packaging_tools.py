@@ -1,4 +1,5 @@
 # coding=utf-8
+import argparse
 import os
 import re
 import shutil
@@ -202,7 +203,7 @@ class ApkPackager(object):
 
             for channel in channel_set:
                 output_apk = os.path.join(temp_output_path,
-                                          "".join([prefix, channel, suffix, ".apk"]))
+                                          "".join([self.prefix_str, channel, self.suffix_str, ".apk"]))
                 shutil.copyfile(self.apk_path, output_apk)
 
                 with zipfile.ZipFile(output_apk, 'a', zipfile.ZIP_DEFLATED) as zipped:
@@ -215,20 +216,28 @@ class ApkPackager(object):
         self.listener.on_finish()
 
 
-if __name__ == "__main__":
-    your_apk = r"D:\channel\app-debug.apk"
-    channel_file = r"D:\channel"
-    output_file = r"D:\channel\apks"
-    listener = PrintPackagingListener()
-    prefix = ""
-    suffix = ""
-    split_state = True
+def main():
+    parse = argparse.ArgumentParser(description=u"packaging_tools用于生成多渠道Apk")
+    parse.add_argument("a", type=str, help=u"模版apk的路径")
+    parse.add_argument("c", type=str, help=u"渠道信息文件(*.channel)或文件夹的路径")
+    parse.add_argument("-o", "--output", type=str, default="",
+                       help=u"存储生成含有渠道信息Apk的文件夹路径，默认存储在模版apk目录下apks文件夹内")
+    parse.add_argument("-p", "--prefix", type=str, help=u"生成apk文件名称的前缀", default="")
+    parse.add_argument("-s", "--suffix", type=str, help=u"生成apk文件名称的后缀", default="")
+    parse.add_argument("-sp", "--split", type=int, choices=[0, 1],
+                       default=0, help=u"0所有生成的apk存在同一个文件夹内，1按不同channel文件分开存储")
+
+    args = parse.parse_args()
 
     (ApkPackager
-     .instance(your_apk)
-     .channels(channel_file)
-     .split(split_state)
-     .dist(output_file)
-     .prefix(prefix)
-     .suffix(suffix)
-     .pack(listener))
+     .instance(args.a)
+     .channels(args.c)
+     .split(args.split == 1)
+     .dist(args.output)
+     .prefix(args.prefix)
+     .suffix(args.suffix)
+     .pack())
+
+
+if __name__ == "__main__":
+    main()
