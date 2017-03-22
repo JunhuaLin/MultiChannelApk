@@ -17,7 +17,9 @@ Android中加入如下代码：
 >python packaging_tools.py -h
 
 输出帮助信息：
+
 ![帮助信息](https://github.com/JunhuaLin/MultiChannelApk/blob/master/assets/help.png)
+
 按着帮助信息填写参数。
 
 #### 2.设置源和渠道信息
@@ -28,6 +30,7 @@ Android中加入如下代码：
 渠道信息：/home/junhua/channel/ 即该目录下所有的*.channel文件
 
 #### 3.生成文件
+
 ![生成文件](https://github.com/JunhuaLin/MultiChannelApk/blob/master/assets/result1.png)
 
 
