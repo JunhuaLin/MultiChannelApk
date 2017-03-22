@@ -32,8 +32,8 @@ public class ChannelApplication extends Application {
             return CHANNEL;
         }
 
+        //首次打开应用获取
         ApplicationInfo appInfo = INSTANCE.getApplicationInfo();
-        //首次打开应用获取或者清空缓存后获取
         String sourceDir = appInfo.sourceDir;
         String result = "";
         ZipFile zipfile = null;
