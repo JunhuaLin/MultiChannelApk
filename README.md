@@ -99,7 +99,9 @@ public class ChannelApplication extends Application {
 
 ### 使用Channel信息
 
->ChannelApplication.getChannel()
+>String channel = ChannelApplication.getChannel();
+>System.out.println(channel);
+
 
 
 
