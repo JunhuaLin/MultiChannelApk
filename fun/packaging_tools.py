@@ -221,7 +221,7 @@ def main():
     parse.add_argument("a", type=str, help=u"模版apk的路径")
     parse.add_argument("c", type=str, help=u"渠道信息文件(*.channel)或文件夹的路径")
     parse.add_argument("-o", "--output", type=str, default="",
-                       help=u"存储生成含有渠道信息Apk的文件夹路径，默认存储在模版apk目录下apks文件夹内")
+                       help=u"存储生成含有渠道信息Apk的文件夹路径，默认存储在模版apk目录下apk文件夹内")
     parse.add_argument("-p", "--prefix", type=str, help=u"生成apk文件名称的前缀", default="")
     parse.add_argument("-s", "--suffix", type=str, help=u"生成apk文件名称的后缀", default="")
     parse.add_argument("-sp", "--split", type=int, choices=[0, 1],
