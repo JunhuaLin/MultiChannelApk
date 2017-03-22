@@ -26,8 +26,8 @@ Android中加入如下代码：
 
 ![执行生成](https://github.com/JunhuaLin/MultiChannelApk/blob/master/assets/gen.png)
 
-源：第一个位置参数 /home/junhua/channel/app-debug.apk
-渠道信息：/home/junhua/channel/ 即该目录下所有的*.channel文件
+- 源：第一个位置参数 /home/junhua/channel/app-debug.apk
+- 渠道信息：/home/junhua/channel/ 即该目录下所有的*.channel文件
 
 #### 3.生成文件
 
